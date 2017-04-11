@@ -1,5 +1,3 @@
-package rank;
-
 import java.util.ArrayList;
 
 public class Team implements Comparable<Team> {
