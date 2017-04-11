@@ -1,5 +1,3 @@
-package rank;
-
 import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
