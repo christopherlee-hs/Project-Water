@@ -1,5 +1,3 @@
-package rank;
-
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.filechooser.*;
