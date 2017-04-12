@@ -5,4 +5,5 @@ All the .java files (Team.java, Game.java, Tourney.java, Panel.java, Driver.java
 
 Rankings.jar is the actual program that reads in an Excel file with sheets containing the team names, game results, and pools, and writes to the same file the overall rankings and the rankings within each pool.
 
-Update: the order of the pools in the pools sheet no longer matters.
+Update 4/11/17: the order of the pools in the pools sheet no longer matters.
+Update 4/12/17: Changed "Running" indicator to progres bar.
