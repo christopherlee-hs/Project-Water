@@ -3,7 +3,6 @@ import java.awt.*;
 import javax.swing.filechooser.*;
 import org.apache.poi.openxml4j.exceptions.*;
 import java.awt.event.*;
-import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class Panel extends JPanel {
@@ -72,24 +71,6 @@ public class Panel extends JPanel {
 				
 				Thread t = new Thread(r);
 				t.start();
-				
-				/*
-				try{
-					new Tourney(jfc.getSelectedFile().getAbsolutePath());//TODO-Implement New Tourney Class
-					console="Execution Successful";
-				}
-				catch(InvalidFormatException ex){
-					console="Error: Invalid File";
-				}
-				catch(NotOfficeXmlFileException ex){
-					console="Error: Invalid File";
-				}
-				catch(Exception ex){
-					console="Error: Contact Sunjae";
-					ex.printStackTrace(System.out);
-				}
-				repaint();
-				*/
 			}
 		});
 		
