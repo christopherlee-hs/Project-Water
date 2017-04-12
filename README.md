@@ -7,4 +7,6 @@ Rankings.jar is the actual program that reads in an Excel file with sheets conta
 
 Update 4/11/17: the order of the pools in the pools sheet no longer matters. 
 
-Update 4/12/17: Changed "Running" indicator to progres bar.
+Update 4/12/17: Changed "Running" indicator to progress bar.
+
+Update 4/12/17 2: Bug fixes.
