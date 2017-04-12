@@ -3,25 +3,31 @@ import java.awt.*;
 import javax.swing.filechooser.*;
 import org.apache.poi.openxml4j.exceptions.*;
 import java.awt.event.*;
-import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class Panel extends JPanel {
 	String input;
 	String console;
 	static JFileChooser jfc;
+	static JProgressBar jbar;
 	public Panel() {
 		input="No File Selected";
 		console="";
 
-		this.setSize(360, 420);
+		//this.setSize(360, 420);
 		this.setPreferredSize(new Dimension(360, 420));
+		
 		this.setVisible(true);
 		this.setLayout(null);
 
 		JButton inputSel = new JButton("Select Input File");
 
 		JButton run = new JButton("Run Program");
+		
+		jbar=new JProgressBar();
+		jbar.setBounds(30, 360, 300, 20);
+		this.add(jbar);
+		jbar.setVisible(false);
 
 		jfc = new JFileChooser();
 		jfc.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
@@ -38,7 +44,7 @@ public class Panel extends JPanel {
 		inputSel.setBounds(130, 200, 100, 25);
 		inputSel.setMargin(new Insets(0, 0, 0, 0));
 		this.add(inputSel);
-
+		
 
 		run.setBounds(80, 280, 200, 50);
 		run.setMargin(new Insets(0, 0, 0, 0));
@@ -50,19 +56,27 @@ public class Panel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Runnable r = new Runnable() {
 					public void run() {
-						console = "Running";
+						jbar.setVisible(true);
+						//jbar.setIndeterminate(true);
+						console = "";
+						
+						//console = "Running";
 						repaint();
-						try{
-							new Tourney(jfc.getSelectedFile().getAbsolutePath());//TODO-Implement New Tourney Class
+						try {
+							new Tourney(jfc.getSelectedFile().getAbsolutePath());
+							jbar.setVisible(false);
 							console="Execution Successful";
 						}
-						catch(InvalidFormatException ex){
+						catch(InvalidFormatException ex) {
+							jbar.setVisible(false);
 							console="Error: Invalid File";
 						}
-						catch(NotOfficeXmlFileException ex){
+						catch(NotOfficeXmlFileException ex) {
+							jbar.setVisible(false);
 							console="Error: Invalid File";
 						}
-						catch(Exception ex){
+						catch(Exception ex) {
+							jbar.setVisible(false);
 							console="Error: Contact Sunjae";
 							ex.printStackTrace(System.out);
 						}
@@ -72,24 +86,6 @@ public class Panel extends JPanel {
 				
 				Thread t = new Thread(r);
 				t.start();
-				
-				/*
-				try{
-					new Tourney(jfc.getSelectedFile().getAbsolutePath());//TODO-Implement New Tourney Class
-					console="Execution Successful";
-				}
-				catch(InvalidFormatException ex){
-					console="Error: Invalid File";
-				}
-				catch(NotOfficeXmlFileException ex){
-					console="Error: Invalid File";
-				}
-				catch(Exception ex){
-					console="Error: Contact Sunjae";
-					ex.printStackTrace(System.out);
-				}
-				repaint();
-				*/
 			}
 		});
 		
@@ -134,4 +130,9 @@ public class Panel extends JPanel {
 		}
 		return i;
 	}
+	
+	public static void setProgress(int p) {
+		jbar.setValue(p);
+	}
+	
 }

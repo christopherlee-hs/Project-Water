@@ -3,7 +3,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -22,6 +21,7 @@ public class Tourney {
 	private static DecimalFormat df = new DecimalFormat(".000");
 	private static ArrayList<ArrayList<Team>> pools;
 	public static final int NUM_POOLS = 4;
+	
 	/*
 	public static void main(String[] args) throws InvalidFormatException, IOException {
 		new Tourney("C://Users/217863/Dropbox/Programs/NAPW/teamNames.xlsx");
@@ -31,16 +31,24 @@ public class Tourney {
 	public Tourney(String fileName) throws InvalidFormatException, IOException {
 		file = fileName;
 		teams = new ArrayList<Team>(); // an arraylist of all the teams in the tournament
+		Panel.setProgress(10);
 		teamNames = new ArrayList<String>(); // an arraylist of all the teams' names
 		XSSFWorkbook wb = new XSSFWorkbook(new File(file));
 		setTeams(wb.getSheet("Team Names"));
+		Panel.setProgress(30);
 		parseData(wb.getSheet("Game Results"));
+		Panel.setProgress(40);
 		getPools(wb.getSheet("Pools"));
+		Panel.setProgress(50);
 		wb.close();
 		Collections.sort(teams); // sorts the teams based on w%, head to head, plus/minus, strength of schedule
-		for (ArrayList<Team> a: pools)
-			Collections.sort(a);
+		Panel.setProgress(70);
+		for (int i = 0; i < pools.size(); i++) {
+			Collections.sort(pools.get(i));
+			Panel.setProgress((int) (70+25.0*i/pools.size()));
+		}
 		writeToExcelFile(file);
+		Panel.setProgress(100);
 	}
 	
 	public void parseData(XSSFSheet worksheet) throws IOException, InvalidFormatException {

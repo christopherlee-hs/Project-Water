@@ -1,24 +1,20 @@
-import java.util.*;
 import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.*;
-import java.awt.event.*;
 
-public class Driver{
+public class Driver {
 	public static void main(String[] args) {
-		try{
+		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
-		catch(UnsupportedLookAndFeelException e){
+		catch (UnsupportedLookAndFeelException e) {
 			// handle exception
 		}
-		catch(ClassNotFoundException e){
+		catch (ClassNotFoundException e) {
 			// handle exception
 		}
-		catch(InstantiationException e){
+		catch (InstantiationException e) {
 			// handle exception
 		}
-		catch(IllegalAccessException e){
+		catch (IllegalAccessException e) {
 			// handle exception
 		}
 
