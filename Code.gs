@@ -7,7 +7,7 @@ function rankTeams(teamList, team1, team2, min, sec, winner) {
   Recording times:
   Record time of first win.
   If team who won first game wins overall, record that time.
-  Otherwise, record 4:00.
+  Otherwise, record 0:00.
   
   */
   
@@ -195,6 +195,9 @@ function rankTeams(teamList, team1, team2, min, sec, winner) {
     if (teamStats[i][2] > 0) {
       teamStats[i][4] /= teamStats[i][2];
     }
+    if (teamStats[i][2] > 0) {
+      teamStats[i][4] = 240 - teamStats[i][4];
+    }
   }
   
   qSort(teamStats, 0, numTeams - 1);
@@ -202,45 +205,56 @@ function rankTeams(teamList, team1, team2, min, sec, winner) {
   //return teamStats;
   
   // stats to be displayed
+  var num_cats = 8;
   var displayStats = new Array(numTeams);
-  fillWithNumArray(displayStats, 7);
+  fillWithNumArray(displayStats, num_cats);
   
   /*
-  0: team name
-  1: games played
-  2: wins
-  3: losses
-  4: win percentage
-  5: average time
-  6: strength of schedule
+  0: rank
+  1: team name
+  2: games played
+  3: wins
+  4: losses
+  5: win percentage
+  6: average time
+  7: strength of schedule
   */
   
   var m, s;
-  for (var i = 0; i < numTeams; i++) { // fill with the stats
-    displayStats[i][0] = teamStats[i][0];
-    displayStats[i][1] = teamStats[i][1];
-    displayStats[i][2] = teamStats[i][2];
-    displayStats[i][3] = teamStats[i][1] - teamStats[i][2];
-    displayStats[i][4] = teamStats[i][3].toFixed(3);
-    m = (teamStats[i][4] / 60) | 0;
-    s = (teamStats[i][4] % 60).toFixed(0);
-    if (s < 10) {
-      displayStats[i][5] = m + ":0" + s;
+  var count = 0;
+  for (var i = 0; i < numTeams; i++) { // fill with the stats of teams who have played at least one game
+    if (teamStats[i][1] > 0) {
+      displayStats[count][0] = count+1;
+      displayStats[count][1] = teamStats[i][0];
+      displayStats[count][2] = teamStats[i][1];
+      displayStats[count][3] = teamStats[i][2];
+      displayStats[count][4] = teamStats[i][1] - teamStats[i][2];
+      displayStats[count][5] = teamStats[i][3].toFixed(3);
+      m = (teamStats[i][4] / 60) | 0;
+      s = (teamStats[i][4] % 60).toFixed(0);
+      if (s < 10) {
+        displayStats[count][6] = m + ":0" + s;
+      }
+      else {
+        displayStats[count][6] = m + ":" + s;
+      }
+      displayStats[count][7] = teamStats[i][8].toFixed(3);
+      
+      count++;
     }
-    else {
-      displayStats[i][5] = m + ":" + s;
-    }
-    displayStats[i][6] = teamStats[i][8].toFixed(3);
   }
   
+  
   // add the labels
-  displayStats.unshift(["Team Name", "Games Played", "Wins", "Losses", 
+  displayStats.unshift(["Rank", "Team Name", "Games Played", "Wins", "Losses", 
                        "Win Percentage", "Average Time of Victory",
                        "Strength of Schedule"]);
+  count++; // accounts for row of headers
   if (inProgress) {
     displayStats.unshift("Game results are still being updated, so these rankings are NOT final.")
+    count++; // accounts for row with update message
   }
-  return displayStats;
+  return displayStats.slice(0, count);
 }
 
 function countf(array) {
