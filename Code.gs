@@ -108,7 +108,7 @@ function rankTeams(teamList, team1, team2, min, sec, winner) {
     // iterate through each game
     
     // if any of team/winner boxes are blank, skip over the game
-    if ((min[i] == "" && sec[i] == "") || winner == null) {
+    if (winner[i] == 0) {
       continue;
     }
     
@@ -249,11 +249,26 @@ function rankTeams(teamList, team1, team2, min, sec, winner) {
   displayStats.unshift(["Rank", "Team Name", "Games Played", "Wins", "Losses", 
                        "Win Percentage", "Average Time of Victory",
                        "Strength of Schedule"]);
-  count++; // accounts for row of headers
+  
+  var progressHeader = new Array(2);
+  progressHeader[0] = "Final rankings?";
+  if (inProgress) {
+    progressHeader[1] = "No";
+  }
+  else {
+    progressHeader[1] = "Yes";
+  }
+  displayStats.unshift(progressHeader);
+  
+  count += 2; // accounts for rows of headers
+  
+  /*
   if (inProgress) {
     displayStats.unshift("Game results are still being updated, so these rankings are NOT final.")
     count++; // accounts for row with update message
   }
+  */
+  
   return displayStats.slice(0, count);
 }
 
