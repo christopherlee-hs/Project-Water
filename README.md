@@ -1,6 +1,6 @@
 # Project-Water
 
-Google Script to be used with a Google Sheet.
+Google Script to be used with a Google Sheet. java folder contains deprecated method of ranking teams -- you can ignore this.
 Defines a function rankTeams which takes six columns of cells (e.g. A:A) as its arguments.
 
 General note: an equals sign at the beginning of a cell lets Google Sheets know that it has to evaluate an expression. For example, if you type in =1+2, when you hit enter it will return 3, but if you type in 1+2, it will return 1+2.
